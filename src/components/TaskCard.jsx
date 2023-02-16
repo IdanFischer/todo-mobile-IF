@@ -17,13 +17,13 @@ export default function TaskCard({ data }) {
 
 const styles = StyleSheet.create({
   taskCardContainer: {
-    backgroundColor: "#FF69B4",
+    backgroundColor: "purple",
     padding: 20,
     margin: 5
   },
 
   textTask: {
-    color: "wheat",
+    color: "lime",
     textTransform: "capitalize",
     fontSize: 20
   },

@@ -1,6 +1,7 @@
 import { ScrollView, Text, ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
 import { useEffect, useState } from "react";
 import TaskCard from "./TaskCard";
+import AddTask from "./AddTask";
 
 export default function TaskList() {
   const [tasks, setTasks] = useState()
@@ -39,6 +40,11 @@ export default function TaskList() {
   return (
     <ScrollView>
       <Text style={styles.h1}>To Do List</Text>
+
+      <AddTask 
+        setTasks={setTasks}
+      />
+
       {/* <ImageBackground
       source={require = goku}
       resizeMode="cover"
