@@ -6,13 +6,11 @@ export default function TaskCard({ data }) {
 
   return (
     <View style={styles.taskCardContainer}>
-      <Text style={styles.textTask}>Task: {task}</Text>
-      <Text style={styles.textDone}>Done: {done}</Text>
-      <TouchableOpacity>
-        <Button 
+      <Text style={done ? styles.textDone : styles.textTask}>Task: {task}</Text>
+
+        {/* <Button 
         title="Delete"
-        ></Button>
-      </TouchableOpacity>
+        ></Button> */}
     </View>
   )
 }
@@ -23,17 +21,18 @@ const styles = StyleSheet.create({
     padding: 20,
     margin: 5
   },
+
   textTask: {
     color: "wheat",
     textTransform: "capitalize",
-    marginBottom: 20,
     fontSize: 20
   },
 
   textDone: {
-    color: "lime",
+    color: "pink",
     textTransform: "capitalize",
-    fontSize: 20
+    fontSize: 20,
+    textDecorationLine: "line-through"
   },
 
   button: {

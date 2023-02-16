@@ -1,10 +1,11 @@
+import { ScrollView, Text, ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
 import { useEffect, useState } from "react";
-import { ScrollView, Text, ImageBackground, StyleSheet } from "react-native";
 import TaskCard from "./TaskCard";
-import goku from "../../assets/images/goku.webp"
 
 export default function TaskList() {
   const [tasks, setTasks] = useState()
+
+
   // fetch tasklist in useEffect (run only once)
   useEffect(() => {
     fetch("https://todo-c9-api-if.web.app/tasks")
@@ -16,6 +17,25 @@ export default function TaskList() {
   }, [setTasks])
   // return ScrollView with tasklist mapped to TaskCard
 
+  const toggleDone = (task) => {
+
+    // is task done?
+    const done = !!!task.done // true, false, undefined. We have 3 ! to make it abosulute true
+
+    // we need to send a patch request to `/tasks/${task.taskId}`
+    // in the body we need to send { done: ___ }
+    fetch(`https://todo-c9-api-if.web.app/tasks/${task.taskId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ done })
+    })
+      .then(res => res.json())
+      .then(setTasks)
+      .catch(console.error)
+  }
+
   return (
     <ScrollView>
       <Text style={styles.h1}>To Do List</Text>
@@ -26,8 +46,10 @@ export default function TaskList() {
       {
         !tasks
           ? <Text>Loading...</Text>
-          : tasks.map((tasks) => (
-              <TaskCard key={tasks.taskId} data={tasks}></TaskCard>
+          : tasks.map((task) => (
+            <TouchableOpacity key={task.taskId} onPress={() => toggleDone(task)}>
+              <TaskCard data={task}></TaskCard>
+            </TouchableOpacity>
           ))
       }
       {/* </ImageBackground> */}
